@@ -1,0 +1,29 @@
+---
+title: "Controle de demandas "
+author: Bruno Soares, Luiz Batista, Lucas Vieira, Isabella Teixeira
+date:   13/07/2020
+output: html_document
+---
+
+#Importação das bibliotecas
+```{r}
+if (!require(tidyverse)) install.packages("tidyverse") 
+if (!require(readxl)) install.packages("readxl") 
+if (!require(xlsx)) install.packages("xlsx") 
+if (!require(tidyr)) install.packages("tidyr") 
+
+library(tidyverse)
+library(readxl)
+library(xlsx)
+library(tidyr)
+
+```
+
+
+#Leitura das bases de dados que foram retirados do site da Receita Federal e estão armazenados na pasta "dados"
+#Existe um arquivo completo e uma cópia dele restrito a apenas algumas linhas. Caso deseje o arquivo como todas as informações, alterar a linha comentada da "baseCNPJ"
+```{r}
+
+planilha_controle  <- read.xlsx("C:/Users/Lucas/Desktop/MPRJ/Atual - 2020 NOVO - EM 07-07-2020.xlsx", encoding="UTF-8", sheetName = "Assessoria")
+
+```
