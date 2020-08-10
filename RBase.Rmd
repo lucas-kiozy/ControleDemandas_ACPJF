@@ -25,9 +25,6 @@ if (!require(flexdashboard)) install.packages("flexdashboard")
 if (!require(devtools)) install.packages("devtools")
 library(devtools)
 
-if (!require(qsacnpj)) install_github("georgevbsantiago/qsacnpj")
-library(qsacnpj)
-
 library(tidyverse)
 library(readxl)
 library(xlsx)
