@@ -65,6 +65,8 @@ df_Prom %>%
   group_by(Promotoria) %>%
   ggplot(aes(x=Promotoria, y= Total, fill=Promotoria)) +
   geom_col() +
+  geom_label(aes(label = Total),
+             color = "white") +
   theme(legend.position = "none")
 ```
 
