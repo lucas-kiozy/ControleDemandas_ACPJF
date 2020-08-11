@@ -3,44 +3,69 @@ title: "Controle de demandas "
 author: Bruno Soares, Luiz Batista, Lucas Vieira, Isabella Teixeira
 date:   13/07/2020
 output: 
-    html_document:
-      toc: true
-      toc_depth: 3
-      toc_float: true
-      code_folding: hide
-      df_print: paged
-      highlight: tango
-      lightbox: true
-editor_options: 
-  chunk_output_type: console
+  flexdashboard::flex_dashboard:
+    orientation: rows
 ---
 
-#Importação das bibliotecas
-```{r}
+```{r global, include=F}
 if (!require(tidyverse)) install.packages("tidyverse") 
 if (!require(readxl)) install.packages("readxl") 
 if (!require(xlsx)) install.packages("xlsx") 
 if (!require(tidyr)) install.packages("tidyr") 
 if (!require(flexdashboard)) install.packages("flexdashboard")
-if (!require(devtools)) install.packages("devtools")
-library(devtools)
+if (!require(dplyr)) install.packages("dplyr")
 
 library(tidyverse)
 library(readxl)
 library(xlsx)
 library(tidyr)
 library(flexdashboard)
-library(fs)
-library(DT)
+library(dplyr)
 
 ```
 
 
-#Leitura da planilha de controle
 ```{r}
+knitr::opts_chunk$set(cache=F)
 
 planilha_controle  <- read.xlsx("C:/Users/Lucas/Desktop/MPRJ/Atual - 2020 NOVO - EM 07-07-2020.xlsx", encoding="UTF-8", sheetName = "Assessoria")
 
+#contagem total de procedimentos
+#contagem_total  <- planilha_controle %>% 
+#  group_by(Procedimento) %>% 
+#  summarise(Contagem = length(unique(Promotoria)))
+
+contagem_total  <- nrow(planilha_controle %>% group_by(Procedimento))
+
+#primeira <- planilha_controle %>%  filter(Promotoria  == "1ª PJF")
+
+Promotoria <- table(planilha_controle$Promotoria)
+df_Prom <- data.frame(Promotoria)
+df_Prom <- rename(df_Prom, Promotoria = Var1, Total = Freq)
+
+```
+
+# Aba Principal
+
+## Row 1
+
+### Total de procedimentos
+
+<!-- ícones em: https://fontawesome.com/v4.7.0/icons/ -->
+
+```{r,message=F}
+valueBox((contagem_total), icon = "fa-book", color = "green")
+```
+
+## Row 2
+
+### Itens por promotoria
+```{r}
+df_Prom %>%
+  group_by(Promotoria) %>%
+  ggplot(aes(x=Promotoria, y= Total, fill=Promotoria)) +
+  geom_col() +
+  theme(legend.position = "none")
 ```
 
 ```{r}
