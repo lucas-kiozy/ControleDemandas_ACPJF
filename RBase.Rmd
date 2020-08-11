@@ -49,7 +49,7 @@ df_Prom <- rename(df_Prom, Promotoria = Var1, Total = Freq)
 
 ## Row 1
 
-### Total de procedimentos
+### Total de lançamentos
 
 <!-- ícones em: https://fontawesome.com/v4.7.0/icons/ -->
 
@@ -72,9 +72,16 @@ df_Prom %>%
 
 ```{r}
 #Itens necessários:
-#1- Quantidade de itens do total por quantidade de itens por promotoria
-#2- Quantidade de datas de saída sem que tenha um responsável
-#3- Total de lançamentos e total de procedimentos únicos (total de números MPRJ)
-#4- Tempo total do procedimento que tiverem registro na  coluna S
+#1- Quantidade de datas de saída sem que tenha uma "Servidora Responsável"
+        #(Obs: Para pegar erros)    
+
+#2- Quantidade de datas de saída sem que tenha um "Check-list - responsável"
+    #(*trata-se dos estagiários)    (Obs: Para pegar erros)
+
+#3- Total de lançamentos(total de linhas) e total de procedimentos únicos (total de números MPRJ únicos)
+       # IGUAL à ABA DASHBOARD
+        
+#4- Tempo total do procedimento(SOMA(SAIDA-ENTRADA) * de todos os registros), de todos os procedimentos que 
+    #estão na Secretaria.
 ```
 
