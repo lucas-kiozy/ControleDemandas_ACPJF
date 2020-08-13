@@ -70,6 +70,62 @@ df_Prom %>%
   theme(legend.position = "none")
 ```
 
+# Aba 1
+
+```{r}
+df_data_saida <- planilha_controle[!is.na(planilha_controle$Data.da.saída),]
+
+n_saida <- nrow(df_data_saida)
+
+n_sem_responsavel <- nrow(df_data_saida[is.na(df_data_saida$Servidora.Responsável),])
+
+n_sem_check_responsavel <- nrow(df_data_saida[is.na(df_data_saida$Check.list...responsável),])
+
+```
+
+## Row 1
+
+###  com data de saída dos quais `r n_sem_responsavel` não apresentam servidora responsável
+
+<!-- ícones em: https://fontawesome.com/v4.7.0/icons/ -->
+
+```{r,message=F}
+valueBox(str_c("Existem ", n_saida, " registros "), icon = "fa-exclamation-circle", color = "teal")
+```
+
+###  com data de saída dos quais `r n_sem_check_responsavel` não apresentam responsável pela check-list
+
+<!-- ícones em: https://fontawesome.com/v4.7.0/icons/ -->
+
+```{r,message=F}
+valueBox(str_c("Existem ", n_saida, " registros "), icon = "fa-check-circle", color = "olive")
+```
+
+## Row 2
+
+### Total de lançamentos
+
+```{r,message=F}
+valueBox((contagem_total), icon = "fa-book", color = "green")
+```
+
+### Total de procedimentos únicos
+
+```{r,message=F}
+valueBox(nrow(planilha_controle %>% group_by(Procedimento) %>% distinct(Procedimento)), icon = "fa-inbox", color = "purple")
+```
+
+## Row 3
+
+```{r}
+Promotoria1 <- planilha_controle %>% filter(Promotoria == "1ª PJF")
+
+
+```
+
+### Lançamentos e procedimentos na 1ª PJF
+
+
 ```{r}
 #Itens necessários:
 #1- Quantidade de datas de saída sem que tenha uma "Servidora Responsável"
