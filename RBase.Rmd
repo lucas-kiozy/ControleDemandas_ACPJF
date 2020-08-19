@@ -43,6 +43,10 @@ Promotoria <- table(planilha_controle$Promotoria)
 df_Prom <- data.frame(Promotoria)
 df_Prom <- rename(df_Prom, Promotoria = Var1, Total = Freq)
 
+Local <- table(planilha_controle$`Local.no.MP`,planilha_controle$Promotoria)
+df_Local <- data.frame(Local)
+df_Local <- rename(df_Local, `Local.no.MP` = Var1, Promotoria = Var2, Total = Freq)
+
 ```
 
 # Aba Principal
@@ -63,12 +67,34 @@ valueBox((contagem_total), icon = "fa-book", color = "green")
 ```{r}
 df_Prom %>%
   group_by(Promotoria) %>%
-  ggplot(aes(x=Promotoria, y= Total, fill=Promotoria)) +
+  ggplot(aes(x= Local, 
+             y= Total)) +
   geom_col() +
   geom_label(aes(label = Total),
              color = "white") +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  labs(x = "Promotorias",
+       y = "Total de lançamentos")
 ```
+
+### Itens por Local
+```{r}
+df_Local %>%
+  group_by(Local.no.MP) %>%
+  ggplot(aes(x= Promotoria, 
+             y= Total,
+             fill = Local.no.MP)) +
+  geom_bar(stat='identity', position='dodge') +
+ 
+  # geom_label(aes(label = Total),
+  #            color = "white") +
+  
+  theme(legend.title.align = 0.5) +
+  labs(x = "Promotorias",
+       y = "Lançamentos",
+       filter = "Local")
+```
+
 
 # Aba 1
 
