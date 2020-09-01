@@ -67,8 +67,9 @@ valueBox((contagem_total), icon = "fa-book", color = "green")
 ```{r}
 df_Prom %>%
   group_by(Promotoria) %>%
-  ggplot(aes(x= Local, 
-             y= Total)) +
+  ggplot(aes(x= Promotoria,
+             y= Total,
+             fill= Promotoria)) +
   geom_col() +
   geom_label(aes(label = Total),
              color = "white") +
